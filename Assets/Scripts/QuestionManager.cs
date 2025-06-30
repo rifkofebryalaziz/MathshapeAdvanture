@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
@@ -32,6 +32,12 @@ public class QuestionManager : MonoBehaviour
     private bool hasAnswered = false;
 
     public static QuestionManager Instance;
+
+    [Header("Scoring")]
+    public int score = 0;
+    public TextMeshProUGUI scoreText; // UI untuk tampilkan skor
+    public GameObject failPopupPanel; // Panel pop-up kalau gagal
+
 
     void Awake()
     {
@@ -78,27 +84,33 @@ public class QuestionManager : MonoBehaviour
 
     public void ShowRandomQuestion()
     {
-        if (availableQuestions.Count == 0)
+        if (availableQuestions == null || availableQuestions.Count == 0)
         {
-            // Jika semua soal sudah habis, shuffle ulang
-            InitializeQuestions();
+            Debug.Log("⚠️ Semua soal sudah ditampilkan, reset ulang daftar soal.");
+            InitializeQuestions(); // Reshuffle soal
         }
 
-        // Ambil soal acak dari list
+        if (availableQuestions.Count == 0)
+        {
+            Debug.LogError("❌ Tidak ada soal tersedia di 'availableQuestions'. Pastikan allQuestions terisi!");
+            return;
+        }
+
         int randomIndex = Random.Range(0, availableQuestions.Count);
         currentQuestion = availableQuestions[randomIndex];
 
-        // Setup UI
         SetupQuestionUI();
 
-        // Show panel
         questionPanel.SetActive(true);
         hasAnswered = false;
 
-        // Enable all buttons
         SetButtonsInteractable(true);
         correctAnswerPanel.SetActive(false);
+
+        // Hapus soal dari list agar tidak diulang (opsional)
+        availableQuestions.RemoveAt(randomIndex);
     }
+
 
     void SetupQuestionUI()
     {
@@ -115,27 +127,26 @@ public class QuestionManager : MonoBehaviour
     void OnAnswerSelected(int selectedAnswer)
     {
         if (hasAnswered) return;
-
         hasAnswered = true;
-
-        // Disable all buttons
         SetButtonsInteractable(false);
 
-        // Show correct answer
         bool isCorrect = selectedAnswer == currentQuestion.correctAnswerIndex;
-
-        // Highlight selected answer
         HighlightButton(selectedAnswer, isCorrect);
 
-        // Show correct answer if wrong
         if (!isCorrect)
         {
             HighlightButton(currentQuestion.correctAnswerIndex, true);
         }
+        else
+        {
+            // ✅ Tambah skor jika benar
+            score += 20;
+            UpdateScoreUI();
+        }
 
-        // Show correct answer text
         Invoke(nameof(ShowCorrectAnswer), showAnswerDelay);
     }
+
 
     void ShowCorrectAnswer()
     {
@@ -194,4 +205,13 @@ public class QuestionManager : MonoBehaviour
         // Optional: Remove answered question from available list to avoid repetition
         // availableQuestions.Remove(currentQuestion);
     }
+
+    void UpdateScoreUI()
+    {
+        Debug.Log("UpdateScoreUI dipanggil. Skor saat ini: " + score);
+        if (scoreText != null)
+            scoreText.text = "Score: " + score.ToString();
+    }
+
+
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuestionTrigger : MonoBehaviour
 {
@@ -41,25 +41,24 @@ public class QuestionTrigger : MonoBehaviour
     {
         if (hasTriggered) return;
 
-        // Visual feedback
+        Debug.Log("✔ Player masuk ke trigger soal"); // Tambahan penting
+
         if (spriteRenderer != null)
             spriteRenderer.color = triggeredColor;
 
-        // Show random question
         if (QuestionManager.Instance != null)
         {
+            Debug.Log("✔ QuestionManager.Instance ditemukan, soal akan ditampilkan");
             QuestionManager.Instance.ShowRandomQuestion();
         }
         else
         {
-            Debug.LogError("QuestionManager not found!");
+            Debug.LogError("❌ QuestionManager.Instance = null");
         }
 
         hasTriggered = true;
-
-        // Optional: Disable trigger after use
-        // GetComponent<Collider2D>().enabled = false;
     }
+
 
     void HandleFinishPost()
     {
