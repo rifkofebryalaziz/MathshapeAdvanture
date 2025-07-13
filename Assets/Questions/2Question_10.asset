@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdc2a6cfd97bfc4e943a32b92ec3317, type: 3}
+  m_Name: 2Question_10
+  m_EditorClassIdentifier: 
+  question: Jika sebuah lingkaran memiliki diameter 14 cm, maka panjang jari-jarinya
+    adalah
+  optionA: 14 cm
+  optionB: 7 cm
+  optionC: 28 cm
+  optionD: 21 cm
+  correctAnswerIndex: 1
+  explanation: "ari-jari = diameter \xF7 2 = 14 \xF7 2 = 7 cm"

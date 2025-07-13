@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdc2a6cfd97bfc4e943a32b92ec3317, type: 3}
+  m_Name: 3Question_15
+  m_EditorClassIdentifier: 
+  question: Persegi panjang memiliki panjang 10 cm dan lebar 4 cm. Berapakah kelilingnya?
+  optionA: 28 cm
+  optionB: 40 cm
+  optionC: 36 cm
+  optionD: 32 cm
+  correctAnswerIndex: 0
+  explanation: "Keliling = 2 \xD7 (10 + 4) = 2 \xD7 14 = 28 cm"

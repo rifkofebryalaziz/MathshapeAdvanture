@@ -128,24 +128,29 @@ public class QuestionManager : MonoBehaviour
     {
         if (hasAnswered) return;
         hasAnswered = true;
+
         SetButtonsInteractable(false);
 
         bool isCorrect = selectedAnswer == currentQuestion.correctAnswerIndex;
+
         HighlightButton(selectedAnswer, isCorrect);
 
-        if (!isCorrect)
+        // 🔊 Tambahkan suara
+        if (isCorrect)
         {
-            HighlightButton(currentQuestion.correctAnswerIndex, true);
+            AudioManager.instance.PlaySound("correct");  // Mainkan suara benar
+            score += 20;                                 // Tambah skor
+            UpdateScoreUI();                             // Update tampilan skor
         }
         else
         {
-            // ✅ Tambah skor jika benar
-            score += 20;
-            UpdateScoreUI();
+            AudioManager.instance.PlaySound("wrong");    // Mainkan suara salah
+            HighlightButton(currentQuestion.correctAnswerIndex, true); // Tampilkan jawaban yang benar
         }
 
         Invoke(nameof(ShowCorrectAnswer), showAnswerDelay);
     }
+
 
 
     void ShowCorrectAnswer()
@@ -210,8 +215,12 @@ public class QuestionManager : MonoBehaviour
     {
         Debug.Log("UpdateScoreUI dipanggil. Skor saat ini: " + score);
         if (scoreText != null)
-            scoreText.text = "Score: " + score.ToString();
+            scoreText.text = ": " + score.ToString() + "/100";
     }
-
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScoreUI();
+    }
 
 }
